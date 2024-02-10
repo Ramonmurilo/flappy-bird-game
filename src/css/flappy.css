@@ -9,10 +9,11 @@
 
 [wm-flappy] {
     position: relative;
+
     border: 5px solid dodgerblue;
     height: 700px;
     width: 1200px;
-    margin: 15px;
+    margin: auto;
     background-color: deepskyblue;
     /* fora da div tela desaparece */
     overflow: hidden;

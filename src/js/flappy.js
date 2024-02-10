@@ -4,6 +4,7 @@ function novoElemento(tagName, className) {
     return elem
 }
 
+
 function Barreira(reversa = false) {
     this.elemento = novoElemento('div', 'barreira')
 
@@ -152,7 +153,9 @@ function FlappyBird() {
             passaro.animar()
 
             if ( colidiu(passaro, barreiras) ) {
+                
                 clearInterval(temporizador)
+                window.onkeydown = e => window.location.reload()
             }
 
         }, 20)
@@ -160,4 +163,38 @@ function FlappyBird() {
 }
 
 
-new FlappyBird().start()
+function telaInicial(texto) {
+    const areaDoJogo = document.querySelector('[wm-flappy]')
+    
+    const botao = document.createElement("button")
+    botao.className = "tela-iniciar"
+    botao.textContent = texto 
+
+    const altura = areaDoJogo.clientHeight
+
+    const progresso = new Progresso()
+    const parDeBarreiras1 = new ParDeBarreiras(altura, 200, 200)
+    const parDeBarreiras2 = new ParDeBarreiras(altura, 200, 1000)
+    const passaro = new Passaro(altura)
+
+    areaDoJogo.appendChild(progresso.elemento)
+    areaDoJogo.appendChild(passaro.elemento)
+    areaDoJogo.appendChild(parDeBarreiras1.elemento)
+    areaDoJogo.appendChild(parDeBarreiras2.elemento)
+    areaDoJogo.appendChild(botao)
+
+    window.addEventListener('keypress', () => {
+        areaDoJogo.removeChild(progresso.elemento)
+        areaDoJogo.removeChild(passaro.elemento)
+        areaDoJogo.removeChild(parDeBarreiras1.elemento)
+        areaDoJogo.removeChild(parDeBarreiras2.elemento)
+        areaDoJogo.removeChild(botao)
+
+        new FlappyBird().start() 
+      })
+}
+
+
+
+telaInicial("Pressione uma tecla")
+// new FlappyBird().start()
