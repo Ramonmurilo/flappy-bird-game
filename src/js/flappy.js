@@ -81,6 +81,9 @@ function Passaro(alturaJogo) {
     window.onkeydown = e => voando = true
     window.onkeyup = e => voando = false
 
+    window.ontouchstart = e => voando = true
+    window.ontouchend = e => voando = false
+
     this.animar = () => {
         const novoY = this.getY() + (voando ? 8 : -5)
         const alturaMaxima = alturaJogo - this.elemento.clientHeight
@@ -155,6 +158,7 @@ function FlappyBird() {
             if ( colidiu(passaro, barreiras) ) {
                 
                 clearInterval(temporizador)
+                window.ontouchstart = e => window.location.reload()
                 window.onkeydown = e => window.location.reload()
             }
 
@@ -183,7 +187,7 @@ function telaInicial(texto) {
     areaDoJogo.appendChild(parDeBarreiras2.elemento)
     areaDoJogo.appendChild(botao)
 
-    window.addEventListener('keypress', () => {
+    window.addEventListener('touchstart', () => {
         areaDoJogo.removeChild(progresso.elemento)
         areaDoJogo.removeChild(passaro.elemento)
         areaDoJogo.removeChild(parDeBarreiras1.elemento)
@@ -192,6 +196,16 @@ function telaInicial(texto) {
 
         new FlappyBird().start() 
       })
+
+    window.addEventListener('keypress', () => {
+        areaDoJogo.removeChild(progresso.elemento)
+        areaDoJogo.removeChild(passaro.elemento)
+        areaDoJogo.removeChild(parDeBarreiras1.elemento)
+        areaDoJogo.removeChild(parDeBarreiras2.elemento)
+        areaDoJogo.removeChild(botao)
+
+        new FlappyBird().start() 
+    })
 }
 
 
